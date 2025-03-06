@@ -13,7 +13,7 @@ func parse(_ args: [String]) throws -> Operation {
         throw ParseError.IllegalArguments;
     }
     var argsM = args;
-    var result =  Operation(constant: Double(argsM.popLast() ?? "0")!);
+    var result =  Operation(constant: Int(argsM.popLast() ?? "0")!);
     
     while !argsM.isEmpty {
         let operationType = switch argsM.popLast() ?? "" {
@@ -27,7 +27,7 @@ func parse(_ args: [String]) throws -> Operation {
         if operationType == OpType.CONST {
             throw ParseError.IllegalArguments
         }
-        let val = Double(argsM.popLast()!)!
+        let val = Int(argsM.popLast()!)!
         result = Operation(operand1: Operation(constant: val), operand2: result, operationType: operationType)
     }
     return result;

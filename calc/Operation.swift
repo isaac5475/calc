@@ -16,7 +16,7 @@ class Operation {
     let operand1 : Operation?
     let operand2 : Operation?
     let operationType : OpType
-    let value : Double?
+    let value : Int?
     
     init(operand1: Operation, operand2: Operation, operationType: OpType) {
         self.operand1 = operand1;
@@ -24,13 +24,13 @@ class Operation {
         self.operationType = operationType;
         value = nil;
     };
-    init(constant: Double) {
+    init(constant: Int) {
         value = constant;
         operand1 = nil;
         operand2 = nil;
         self.operationType = OpType.CONST
     }
-    func compute() -> Double {
+    func compute() -> Int {
         switch operationType {
         case .ADD:
             let val1 = operand1?.compute() ?? 0;
