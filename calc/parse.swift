@@ -12,7 +12,7 @@ func parse(_ args: [String]) throws -> Operation {
     if !isValidInput(args) {
         throw ParseError.IllegalArguments;
     }
-    var argsM = args;
+    var argsM = try reducePriorityOperators(args);
     let lastNumber = Int(argsM.popLast() ?? "0");
     if lastNumber == nil {
         throw ParseError.IllegalArguments;
@@ -55,7 +55,7 @@ func reducePriorityOperators(_ args: [String]) throws -> [String] {
     do {
         var i = 0;
         let priorityOperators = ["x", "/", "%"];
-        while i <= argsM.count {
+        while i < argsM.count {
             if priorityOperators.contains(argsM[i]) {    //  if this token is *, / or %, previous and successing are integers
                 let op = parseOperator(argsM[i].first!);
                 if op == OpType.CONST {
@@ -67,7 +67,7 @@ func reducePriorityOperators(_ args: [String]) throws -> [String] {
                     throw ParseError.IllegalArguments;
                 }
                 let reduced = try Operation(operand1: Operation.init(constant: leftOperand!), operand2: Operation(constant: rightOperand!), operationType: op).compute();
-                argsM.replaceSubrange(i - 1...i + 2, with: [String(reduced)])
+                argsM.replaceSubrange(i - 1...min(i + 2, argsM.count - 1), with: [String(reduced)])
                 i -= 1; //  3 elements reduced to 1
             }
             i += 1;
