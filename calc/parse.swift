@@ -13,15 +13,22 @@ func parse(_ args: [String]) throws -> Operation {
         throw ParseError.IllegalArguments;
     }
     var argsM = args;
-    var result =  Operation(constant: Int(argsM.popLast() ?? "0")!);
+    let lastNumber = Int(argsM.popLast() ?? "0");
+    if lastNumber == nil {
+        throw ParseError.IllegalArguments;
+    }
+    var result =  Operation(constant: lastNumber!);
 
     while !argsM.isEmpty {
         let operationType = parseOperator(argsM.popLast()!.first!);
         if operationType == OpType.CONST {
             throw ParseError.IllegalArguments
         }
-        let val = Int(argsM.popLast()!)!
-        result = Operation(operand1: Operation(constant: val), operand2: result, operationType: operationType)
+        let val = Int(argsM.popLast()!)
+        if val == nil {
+            throw ParseError.IllegalArguments;
+        }
+        result = Operation(operand1: Operation(constant: val!), operand2: result, operationType: operationType)
     }
     return result;
 }
@@ -54,9 +61,12 @@ func reducePriorityOperators(_ args: [String]) throws -> [String] {
                 if op == OpType.CONST {
                     throw ParseError.IllegalArguments;
                 }
-                let leftOperand = Int(argsM[i - 1])!;
-                let rightOperand = Int(argsM[i + 1])!;
-                let reduced = try Operation(operand1: Operation.init(constant: leftOperand), operand2: Operation(constant: rightOperand), operationType: op).compute();
+                let leftOperand = Int(argsM[i - 1]);
+                let rightOperand = Int(argsM[i + 1]);
+                if leftOperand == nil || rightOperand == nil {
+                    throw ParseError.IllegalArguments;
+                }
+                let reduced = try Operation(operand1: Operation.init(constant: leftOperand!), operand2: Operation(constant: rightOperand!), operationType: op).compute();
                 argsM.replaceSubrange(i - 1...i + 2, with: [String(reduced)])
                 i -= 1; //  3 elements reduced to 1
             }

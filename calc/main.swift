@@ -15,6 +15,8 @@ do {
         let int = Int(args[0]);
         if int != nil {
             print(int!)
+        } else {
+            throw ParseError.IllegalArguments;
         }
     } else {
         let op = try parse(args);
