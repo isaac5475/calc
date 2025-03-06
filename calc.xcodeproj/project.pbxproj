@@ -11,6 +11,7 @@
 		054418F12055EEE9008C821B /* calc in Resources */ = {isa = PBXBuildFile; fileRef = 054418EA2055EED5008C821B /* calc */; };
 		054418F62055EFEB008C821B /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054418F52055EFEB008C821B /* main.swift */; };
 		05C4D95F1E76182500AB9F52 /* CalcTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C4D95E1E76182500AB9F52 /* CalcTest.swift */; };
+		C584E8032D7962DD001C1DF4 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C584E8022D7962D6001C1DF4 /* Operation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		05C4D95E1E76182500AB9F52 /* CalcTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalcTest.swift; sourceTree = "<group>"; };
 		05C4D9601E76182500AB9F52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05F9F69E1E9DEDD500694D73 /* CalcTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CalcTest-Bridging-Header.h"; sourceTree = "<group>"; };
+		C584E8022D7962D6001C1DF4 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		054418F42055EFEB008C821B /* calc */ = {
 			isa = PBXGroup;
 			children = (
+				C584E8022D7962D6001C1DF4 /* Operation.swift */,
 				054418F52055EFEB008C821B /* main.swift */,
 			);
 			path = calc;
@@ -159,6 +162,7 @@
 				TargetAttributes = {
 					054418E92055EED5008C821B = {
 						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = Q72A7777MQ;
 						ProvisioningStyle = Manual;
 					};
 					05C4D95B1E76182500AB9F52 = {
@@ -173,6 +177,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 05C4D9451E7616DE00AB9F52;
@@ -203,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				054418F62055EFEB008C821B /* main.swift in Sources */,
+				C584E8032D7962DD001C1DF4 /* Operation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,10 +243,12 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
 				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = Q72A7777MQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -262,10 +270,12 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
 				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = Q72A7777MQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -300,8 +310,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -354,8 +364,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -379,9 +389,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				CODE_SIGNING_REQUIRED = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CalcTest/Info.plist;
@@ -401,9 +411,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGNING_REQUIRED = NO;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
-				CODE_SIGNING_REQUIRED = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CalcTest/Info.plist;
