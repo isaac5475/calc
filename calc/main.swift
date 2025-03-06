@@ -11,10 +11,16 @@ import Foundation
 var args = ProcessInfo.processInfo.arguments
 args.removeFirst() // remove the name of the program
 do {
-    let op = try parse(args);
-    print("args: ", args);
-    print("Operation: ", op);
-    print("=", op.compute());
-} catch ParseError.IllegalArguments {
-
+    if args.count == 1 {
+        let int = Int(args[0]);
+        if int != nil {
+            print(int!)
+        }
+    } else {
+        let op = try parse(args);
+        print(try op.compute())
+    }
+} catch  {
+    print("Error")
+    exit(1);
 }

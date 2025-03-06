@@ -14,16 +14,9 @@ func parse(_ args: [String]) throws -> Operation {
     }
     var argsM = args;
     var result =  Operation(constant: Int(argsM.popLast() ?? "0")!);
-    
+
     while !argsM.isEmpty {
-        let operationType = switch argsM.popLast() ?? "" {
-        case "+":
-            OpType.ADD
-        case "-":
-            OpType.SUBTR
-        default:
-            OpType.CONST
-        }
+        let operationType = parseOperator(argsM.popLast()!.first!);
         if operationType == OpType.CONST {
             throw ParseError.IllegalArguments
         }
@@ -31,6 +24,50 @@ func parse(_ args: [String]) throws -> Operation {
         result = Operation(operand1: Operation(constant: val), operand2: result, operationType: operationType)
     }
     return result;
+}
+
+func parseOperator(_ char: Character) -> OpType {
+    return switch char {
+    case "+":
+        OpType.ADD
+    case "-":
+        OpType.SUBTR
+    case "/":
+        OpType.DIV
+    case "x":
+        OpType.MULT
+    case "%":
+        OpType.MOD
+    default:
+        OpType.CONST
+    }
+}
+
+func reducePriorityOperators(_ args: [String]) throws -> [String] {
+    var argsM = args;
+    do {
+        var i = 0;
+        let priorityOperators = ["x", "/", "%"];
+        while i <= argsM.count {
+            if priorityOperators.contains(argsM[i]) {    //  if this token is *, / or %, previous and successing are integers
+                let op = parseOperator(argsM[i].first!);
+                if op == OpType.CONST {
+                    throw ParseError.IllegalArguments;
+                }
+                let leftOperand = Int(argsM[i - 1])!;
+                let rightOperand = Int(argsM[i + 1])!;
+                let reduced = try Operation(operand1: Operation.init(constant: leftOperand), operand2: Operation(constant: rightOperand), operationType: op).compute();
+                argsM.replaceSubrange(i - 1...i + 2, with: [String(reduced)])
+                i -= 1; //  3 elements reduced to 1
+            }
+            i += 1;
+        }
+    } catch ArithmeticError.DivisionBy0 {
+        throw ArithmeticError.DivisionBy0;
+    } catch ArithmeticError.NonPositiveMod {
+        throw ArithmeticError.NonPositiveMod
+    }
+    return argsM;
 }
 
 func isValidInput(_ args: [String]) -> Bool {

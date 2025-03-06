@@ -10,6 +10,14 @@ enum OpType {
     case ADD
     case SUBTR
     case CONST
+    case MULT
+    case DIV
+    case MOD
+}
+
+enum ArithmeticError : Error {
+    case DivisionBy0
+    case NonPositiveMod
 }
 
 class Operation {
@@ -30,16 +38,35 @@ class Operation {
         operand2 = nil;
         self.operationType = OpType.CONST
     }
-    func compute() -> Int {
+    func compute() throws -> Int {
+        let val1: Int;
+        let val2: Int;
+        do {
+            val1 = try operand1?.compute() ?? 0;
+            val2 = try operand2?.compute() ?? 0;
+        } catch ArithmeticError.DivisionBy0 {
+            throw ArithmeticError.DivisionBy0;
+        } catch ArithmeticError.NonPositiveMod {
+            throw ArithmeticError.NonPositiveMod
+        }
+        
         switch operationType {
         case .ADD:
-            let val1 = operand1?.compute() ?? 0;
-            let val2 = operand2?.compute() ?? 0;
             return val1 + val2;
         case .SUBTR:
-            let val1 = operand1?.compute() ?? 0;
-            let val2 = operand2?.compute() ?? 0;
             return val1 - val2;
+        case .MULT:
+            return val1 * val2;
+        case .DIV:
+            if val2 == 0 {
+                throw ArithmeticError.DivisionBy0;
+            }
+            return val1 / val2;
+        case .MOD:
+            if val2 <= 0 {
+                throw ArithmeticError.NonPositiveMod;
+            }
+            return val1 % val2;
         case .CONST:
             return value ?? 0;
 
