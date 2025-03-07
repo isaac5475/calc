@@ -67,7 +67,7 @@ func reducePriorityOperators(_ args: [String]) throws -> [String] {
                     throw ParseError.IllegalArguments;
                 }
                 let reduced = try Operation(operand1: Operation.init(constant: leftOperand!), operand2: Operation(constant: rightOperand!), operationType: op).compute();
-                argsM.replaceSubrange(i - 1...min(i + 2, argsM.count - 1), with: [String(reduced)])
+                argsM.replaceSubrange(i - 1...min(i + 1, argsM.count - 1), with: [String(reduced)])
                 i -= 1; //  3 elements reduced to 1
             }
             i += 1;
