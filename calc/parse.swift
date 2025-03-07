@@ -13,22 +13,23 @@ func parse(_ args: [String]) throws -> Operation {
         throw ParseError.IllegalArguments;
     }
     var argsM = try reducePriorityOperators(args);
-    let lastNumber = Int(argsM.popLast() ?? "0");
-    if lastNumber == nil {
+    let firstNumber = Int(argsM.removeFirst());
+    if firstNumber == nil {
         throw ParseError.IllegalArguments;
     }
-    var result =  Operation(constant: lastNumber!);
+    var result =  Operation(constant: firstNumber!);
 
     while !argsM.isEmpty {
-        let operationType = parseOperator(argsM.popLast()!.first!);
+        let operationType = parseOperator(argsM.removeFirst().first!);
         if operationType == OpType.CONST {
             throw ParseError.IllegalArguments
         }
-        let val = Int(argsM.popLast()!)
-        if val == nil {
+        let nextNumber = Int(argsM.removeFirst())
+        if nextNumber == nil {
             throw ParseError.IllegalArguments;
         }
-        result = Operation(operand1: Operation(constant: val!), operand2: result, operationType: operationType)
+
+        result = Operation(operand1: result, operand2: Operation(constant: nextNumber!), operationType: operationType)
     }
     return result;
 }
